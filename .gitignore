@@ -3,3 +3,10 @@
 Gemfile.lock
 pkg/*
 *.tar.gz
+Makefile
+ext/kindlegen/Kindle*
+ext/kindlegen/Sample*
+ext/kindlegen/Multimedia*
+ext/kindlegen/Readme*
+ext/kindlegen/Release*
+ext/kindlegen/kindlegen
