@@ -5,7 +5,11 @@
 require 'rbconfig'
 
 File::open( 'Makefile', 'w' ) do |w|
-	w.puts RbConfig.expand( DATA.read )
+	if Dir::pwd.include? 'gems'
+		w.puts RbConfig.expand( DATA.read, { 'bindir' => '../../../../bin' } )
+	else
+		w.puts RbConfig.expand( DATA.read )
+	end
 end
 
 __END__
