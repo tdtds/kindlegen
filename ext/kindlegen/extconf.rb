@@ -2,6 +2,8 @@
 # making Makefile getting kindlegen from Amazon.com
 #
 
+require 'rbconfig'
+
 File::open( 'Makefile', 'w' ) do |w|
 	w.puts RbConfig.expand( DATA.read )
 end
