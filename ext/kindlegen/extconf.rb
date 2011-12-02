@@ -23,7 +23,7 @@ CURL = curl
 TARX = tar zxf
 CP = cp
 
-all: install
+all:
 
 $(TARGET): $(TARBALL)
 	$(TARX) $(TARBALL)
