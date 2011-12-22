@@ -4,21 +4,30 @@
 
 require 'rbconfig'
 
-File::open( 'Makefile', 'w' ) do |w|
+File::open('Makefile', 'w') do |w|
+  tarball = case RbConfig::CONFIG['host_os']
+  when /mac|darwin/i then "KindleGen_Mac_i386_v1.2.zip"
+  when /linux|cygwin/i then "kindlegen_linux_2.6_i386_v1.2.tar.gz"
+  else
+    STDERR.puts "Host OS unsupported!"
+    exit(1)
+  end
+
+  config = {"tarball" => tarball}
+
 	if Dir::pwd.include? 'gems'
-		w.puts RbConfig.expand( DATA.read, { 'bindir' => '../../../../bin' } )
+		w.puts RbConfig.expand(DATA.read, config.merge('bindir' => '../../../../bin') )
 	else
-		w.puts RbConfig.expand( DATA.read )
+		w.puts RbConfig.expand(DATA.read, config)
 	end
 end
+
 
 __END__
 AMAZON = http://s3.amazonaws.com/kindlegen
 TARGET = kindlegen
 BINDIR = $(bindir)
-PLATFORM = linux_2.6_i386
-VERSION = 1.2
-TARBALL = $(TARGET)_$(PLATFORM)_v$(VERSION).tar.gz
+TARBALL = $(tarball)
 CURL = curl
 TARX = tar zxf
 CP = cp
@@ -34,4 +43,3 @@ $(TARBALL):
 
 install: $(TARGET)
 	$(CP) $(TARGET) $(BINDIR)
-
