@@ -18,6 +18,6 @@ runing kindlegen command with specified parameters.
 
 ### Example
     require 'kindlegen'
-    Kindlegen.run( "sample.opf", "-o sample.mobi" )
+    Kindlegen.run( "sample.opf", "-o", "sample.mobi" )
  
 
