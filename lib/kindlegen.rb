@@ -1,5 +1,6 @@
 require "kindlegen/version"
 require 'pathname'
+require 'systemu'
 
 module Kindlegen
 	#
@@ -21,6 +22,6 @@ module Kindlegen
 	# _params_:: array of command parameters.
 	#
 	def self.run( *params )
-		system command, *params
+		systemu command + ' ' + params.join( ' ' )
 	end
 end
