@@ -5,8 +5,8 @@
 require 'rbconfig'
 File::open('Makefile', 'w') do |w|
   tarball = case RbConfig::CONFIG['host_os']
-  when /mac|darwin/i then "KindleGen_Mac_i386_v2.zip"
-  when /linux|cygwin/i then "kindlegen_linux_2.6_i386_v2.tar.gz"
+  when /mac|darwin/i then "KindleGen_Mac_i386_v2_4.zip"
+  when /linux|cygwin/i then "kindlegen_linux_2.6_i386_v2_4.tar.gz"
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
