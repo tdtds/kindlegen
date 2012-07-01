@@ -5,14 +5,21 @@
 require 'rbconfig'
 File::open('Makefile', 'w') do |w|
   tarball = case RbConfig::CONFIG['host_os']
-  when /mac|darwin/i then "KindleGen_Mac_i386_v2_4.zip"
-  when /linux|cygwin/i then "kindlegen_linux_2.6_i386_v2_4.tar.gz"
+  when /mac|darwin/i
+    unzip = 'unzip'
+    "KindleGen_Mac_i386_v2_4.zip"
+  when /linux|cygwin/i
+    unzip = 'tar zxf'
+    "kindlegen_linux_2.6_i386_v2_4.tar.gz"
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
   end
 
-  config = {"tarball" => tarball}
+  config = {
+    "unzip" => unzip,
+    "tarball" => tarball
+  }
 
 	if Dir::pwd.include? 'gems'
 		w.puts RbConfig.expand(DATA.read, config.merge('bindir' => '../../../../bin') )
@@ -28,13 +35,13 @@ TARGET = kindlegen
 BINDIR = $(bindir)
 TARBALL = $(tarball)
 CURL = curl
-TARX = tar zxf
+UNZIP = $(unzip)
 CP = cp
 
 all:
 
 $(TARGET): $(TARBALL)
-	$(TARX) $(TARBALL)
+	$(UNZIP) $(TARBALL)
 	touch $(TARGET)
 
 $(TARBALL):
