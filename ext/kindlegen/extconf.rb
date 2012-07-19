@@ -7,22 +7,23 @@ File::open('Makefile', 'w') do |w|
   tarball = case RbConfig::CONFIG['host_os']
   when /mac|darwin/i
     unzip = 'unzip'
-    "KindleGen_Mac_i386_v2_4.zip"
+    "KindleGen_Mac_i386_v2_5.zip"
   when /linux|cygwin/i
     unzip = 'tar zxf'
-    "kindlegen_linux_2.6_i386_v2_4.tar.gz"
+    "kindlegen_linux_2.6_i386_v2_5.tar.gz"
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
   end
 
-  config = {
+  config = RbConfig::CONFIG.merge( {
     "unzip" => unzip,
     "tarball" => tarball
-  }
+  } )
 
-	if Dir::pwd.include? 'gems'
-		w.puts RbConfig.expand(DATA.read, config.merge('bindir' => '../../../../bin') )
+	bindir = '../../../../bin'
+	if Dir::pwd.include?( 'gems' ) && FileTest.directory?( bindir )
+		w.puts RbConfig.expand(DATA.read, config.merge('bindir' => bindir) )
 	else
 		w.puts RbConfig.expand(DATA.read, config)
 	end
@@ -36,13 +37,14 @@ BINDIR = $(bindir)
 TARBALL = $(tarball)
 CURL = curl
 UNZIP = $(unzip)
-CP = cp
+CP = cp -a
 
 all:
 
 $(TARGET): $(TARBALL)
 	$(UNZIP) $(TARBALL)
 	touch $(TARGET)
+	chmod +x $(TARGET)
 
 $(TARBALL):
 	$(CURL) $(AMAZON)/$(TARBALL) -o $(TARBALL)
