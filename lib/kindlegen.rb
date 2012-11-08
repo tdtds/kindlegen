@@ -3,17 +3,18 @@ require 'pathname'
 require 'systemu'
 
 module Kindlegen
+  Root = Pathname.new(File.expand_path('../..', __FILE__))
+  Bin  = Root.join('bin')
+  Executables = Bin.children.inject({}) { |h, p|
+    h[p.basename.to_s.to_sym] = p.to_s
+    h
+  }
+
 	#
 	# Getting command path of kindlegen.
-	# If it required under gem, returning path in the extension.
-	# Not if, it return simply 'kindlegen' so you have to copy the command into $PATH.
 	#
 	def self.command
-		if __FILE__.include? 'gems'
-			(Pathname( __FILE__ ).parent + '../ext/kindlegen/kindlegen').to_s
-		else
-			'kindlegen'
-		end
+    Executables[:kindlegen]
 	end
 
 	#
