@@ -16,17 +16,13 @@ File::open('Makefile', 'w') do |w|
     exit(1)
   end
 
-  config = RbConfig::CONFIG.merge( {
+  config = RbConfig::CONFIG.merge({
     "unzip" => unzip,
     "tarball" => tarball
-  } )
+  })
 
-	bindir = '../../../../bin'
-	if Dir::pwd.include?( 'gems' ) && FileTest.directory?( bindir )
-		w.puts RbConfig.expand(DATA.read, config.merge('bindir' => bindir) )
-	else
-		w.puts RbConfig.expand(DATA.read, config)
-	end
+  bindir = File.join(File.expand_path('../../..', __FILE__), "bin")
+  w.puts RbConfig.expand(DATA.read, config.merge('bindir' => bindir))
 end
 
 
@@ -38,6 +34,7 @@ TARBALL = $(tarball)
 CURL = curl
 UNZIP = $(unzip)
 CP = cp -a
+MKDIR = mkdir -p
 
 all:
 
@@ -50,4 +47,5 @@ $(TARBALL):
 	$(CURL) $(AMAZON)/$(TARBALL) -o $(TARBALL)
 
 install: $(TARGET)
+	$(MKDIR) $(BINDIR)
 	$(CP) $(TARGET) $(BINDIR)
