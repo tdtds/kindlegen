@@ -7,10 +7,10 @@ File::open('Makefile', 'w') do |w|
   tarball = case RbConfig::CONFIG['host_os']
   when /mac|darwin/i
     unzip = 'unzip'
-    "KindleGen_Mac_i386_v2_5.zip"
+    "KindleGen_Mac_i386_v2_7.zip"
   when /linux|cygwin/i
     unzip = 'tar zxf'
-    "kindlegen_linux_2.6_i386_v2_5.tar.gz"
+    "kindlegen_linux_2.6_i386_v2_7.tar.gz"
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
