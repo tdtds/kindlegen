@@ -1,23 +1,23 @@
 # Kindlegen
 
-Easy to install kindlegen command via gem!
+Easy to install kindlegen command via gem.
 
-When you will run this gem, it will download tarball of kindlegen from amazon.com and extract it. Then you can find command file in "$GEMPATH/bin".
+When you run this gem, it will download a tarball of kindlegen from amazon.com and extract it. Then you can find the command file in "$GEMPATH/bin".
 
 ## Using from Ruby
 
-Require kindlegen module, you can run kindlegen command without you know its path.
+Require `kindlegen`, then run kindlegen commands.
 
 ### Kindlegen.command
 
-returning path of kindlegen command.
+Returns the path of the kindlegen command.
 
 ### Kindlegen.run( *args )
 
-runing kindlegen command with specified parameters.
+Runs the kindlegen command with specified parameters.
 
 ### Example
     require 'kindlegen'
-    Kindlegen.run( "sample.opf", "-o", "sample.mobi" )
+    Kindlegen.run("sample.opf", "-o", "sample.mobi")
  
 
