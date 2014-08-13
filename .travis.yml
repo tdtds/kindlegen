@@ -1,4 +1,4 @@
 language: ruby
 rvm:
   - 2.1.0
-script: rake build test
+script: bundle exec rake test

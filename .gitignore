@@ -1,7 +1,10 @@
 *.gem
-.bundle
-Gemfile.lock
-pkg/*
+/pkg/*
+/.bundle
+/vendor/bundle
+/Gemfile.lock
+/.ruby-version
+/.ruby-gemset
 *.tar.gz
 Makefile
 ext/kindlegen/Kindle*
