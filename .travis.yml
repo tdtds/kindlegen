@@ -1,0 +1,5 @@
+language: ruby
+rvm:
+  - 2.1.0
+# NOTE the build step is required to run the tests
+script: bundle exec rake build test
