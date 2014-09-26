@@ -23,6 +23,17 @@ module Kindlegen
   # _params_:: array of command parameters.
   #
   def self.run( *params )
-    systemu command + ' ' + params.join( ' ' )
+    clean_env do
+      systemu(command + ' ' + params.join(' '))
+    end
+  end
+
+private
+  def self.clean_env
+    env_backup = {}.tap{|e|ENV.each{|k,v| e[k] = v}}
+    ENV.keys.each{|key| ENV.delete(key)}
+    ret = yield
+    env_backup.each{|k,v| ENV[k] = v}
+    return ret
   end
 end
