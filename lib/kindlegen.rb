@@ -10,19 +10,19 @@ module Kindlegen
     h
   }
 
-	#
-	# Getting command path of kindlegen.
-	#
-	def self.command
+  #
+  # Getting command path of kindlegen.
+  #
+  def self.command
     Executables[:kindlegen]
-	end
+  end
 
-	#
-	# Run kindlegen command with spacified parameters
-	#
-	# _params_:: array of command parameters.
-	#
-	def self.run( *params )
-		systemu command + ' ' + params.join( ' ' )
-	end
+  #
+  # Run kindlegen command with spacified parameters
+  #
+  # _params_:: array of command parameters.
+  #
+  def self.run( *params )
+    systemu command + ' ' + params.join( ' ' )
+  end
 end
