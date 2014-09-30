@@ -1,6 +1,6 @@
 require "kindlegen/version"
 require 'pathname'
-require 'systemu'
+require 'open3'
 
 module Kindlegen
   Root = Pathname.new(File.expand_path('../..', __FILE__))
@@ -24,7 +24,7 @@ module Kindlegen
   #
   def self.run( *params )
     clean_env do
-      systemu(command + ' ' + params.join(' '))
+      Open3.capture3(command + ' ' + params.join(' '))
     end
   end
 
