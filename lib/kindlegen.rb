@@ -30,10 +30,10 @@ module Kindlegen
 
 private
   def self.clean_env
-    env_backup = {}.tap{|e|ENV.each{|k,v| e[k] = v}}
-    ENV.keys.each{|key| ENV.delete(key)}
+    env_backup = ENV.to_h
+    ENV.clear
     ret = yield
-    env_backup.each{|k,v| ENV[k] = v}
+    ENV.replace(env_backup)
     return ret
   end
 end
