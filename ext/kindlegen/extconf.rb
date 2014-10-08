@@ -11,6 +11,9 @@ File::open('Makefile', 'w') do |w|
   when /linux|cygwin/i
     unzip = 'tar zxf'
 	 "kindlegen_linux_2.6_i386_v2_9.tar.gz"
+  when /mingw32/i
+    unzip = 'unzip'
+    "kindlegen_win32_v2_9.zip"
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
