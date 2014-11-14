@@ -43,7 +43,6 @@ all:
 
 $(TARGET): $(TARBALL)
 	$(UNZIP) $(TARBALL)
-	$(CP) */$(TARGET) $(TARGET)
 	touch $(TARGET)
 	chmod +x $(TARGET)
 
