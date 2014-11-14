@@ -1,5 +1,5 @@
 language: ruby
 rvm:
-  - 2.1.0
+  - 2.1.5
 # NOTE the build step is required to run the tests
 script: bundle exec rake build test

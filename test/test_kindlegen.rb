@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'rubygems/installer'
 require 'rubygems/uninstaller'
 KINDLEGEN_PROJECT_DIR = File.expand_path(File.dirname(File.dirname(__FILE__)))
 $:.delete(File.join(KINDLEGEN_PROJECT_DIR, 'lib'))
@@ -8,12 +9,11 @@ class KindlegenTest < Test::Unit::TestCase
     kindlegen_lib_dir = nil
     gem_version = File.read(File.join(KINDLEGEN_PROJECT_DIR, 'lib/kindlegen/version.rb')).match(/VERSION = ["'](.*?)["']/)[1]
     gem_file = File.join(KINDLEGEN_PROJECT_DIR, 'pkg', %(kindlegen-#{gem_version}.gem))
-    result = Gem.install gem_file
+    result = Gem::Installer.new(gem_file).install
     begin
       require 'kindlegen'
     rescue ::LoadError
-      kindlegen_lib_dir = ::File.join(result[0].gem_dir, 'lib')
-      $:.unshift kindlegen_lib_dir
+      $:.unshift result.lib_dirs_glob
       require 'kindlegen'
     end
     output = %x(#{Kindlegen.command})
