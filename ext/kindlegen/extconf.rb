@@ -30,7 +30,7 @@ end
 
 
 __END__
-AMAZON = http://s3.amazonaws.com/kindlegen
+AMAZON = http://kindlegen.s3.amazonaws.com
 TARGET = kindlegen
 BINDIR = $(bindir)
 TARBALL = $(tarball)
