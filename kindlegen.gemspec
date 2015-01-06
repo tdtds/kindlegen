@@ -5,6 +5,9 @@ require "kindlegen/version"
 Gem::Specification.new do |s|
   s.name        = "kindlegen"
   s.version     = Kindlegen::VERSION
+  s.platform    = Gem::Platform::RUBY
+  s.required_ruby_version = '>= 2.0.0'
+
   s.authors     = ["TADA Tadashi"]
   s.email       = ["t@tdtds.jp"]
   s.homepage    = ""
