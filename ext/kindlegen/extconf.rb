@@ -9,7 +9,7 @@ File::open('Makefile', 'w') do |w|
     unzip = 'unzip'
 	 "KindleGen_Mac_i386_v2_9.zip"
   when /linux|cygwin/i
-    unzip = 'tar zxf'
+    unzip = 'tar -zx --no-same-owner -f'
 	 "kindlegen_linux_2.6_i386_v2_9.tar.gz"
   when /mingw32/i
     unzip = 'unzip'
