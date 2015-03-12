@@ -13,7 +13,9 @@ class KindlegenTest < Test::Unit::TestCase
     begin
       require 'kindlegen'
     rescue ::LoadError
-      $:.unshift result.lib_dirs_glob
+      Dir.glob(result.lib_dirs_glob).each do |path|
+        $:.unshift path
+      end
       require 'kindlegen'
     end
     output = %x(#{Kindlegen.command})
