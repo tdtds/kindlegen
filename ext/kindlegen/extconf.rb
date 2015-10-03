@@ -4,34 +4,51 @@
 
 require 'rbconfig'
 File::open('Makefile', 'w') do |w|
-  tarball = case RbConfig::CONFIG['host_os']
+  case RbConfig::CONFIG['host_os']
   when /mac|darwin/i
     unzip = 'unzip'
-	 "KindleGen_Mac_i386_v2_9.zip"
+    tarball = 'KindleGen_Mac_i386_v2_9.zip'
+    target = 'kindlegen'
   when /linux|cygwin/i
     unzip = 'tar -zx --no-same-owner -f'
-	 "kindlegen_linux_2.6_i386_v2_9.tar.gz"
+    tarball = 'kindlegen_linux_2.6_i386_v2_9.tar.gz'
+    target = 'kindlegen'
   when /mingw32/i
     unzip = 'unzip'
-    "kindlegen_win32_v2_9.zip"
+    # Abort if either `unzip' or `curl' if not found
+    `where #{unzip}`
+    unless ($?.success?)
+      STDERR.puts "The program `unzip' not found. Aborting."
+      exit(1)
+    end
+    `where curl`
+    unless ($?.success?)
+      STDERR.puts "The program `curl` not found. Aborting."
+      exit(1)
+    end 
+    tarball = 'kindlegen_win32_v2_9.zip'
+    target = 'kindlegen.exe'
   else
     STDERR.puts "Host OS unsupported!"
     exit(1)
   end
 
+  bindir = File.join(File.expand_path('../../..', __FILE__), "bin")
+
   config = RbConfig::CONFIG.merge({
     "unzip" => unzip,
-    "tarball" => tarball
+    "tarball" => tarball,
+    "target" => target,
+    "bindir" => bindir,
   })
 
-  bindir = File.join(File.expand_path('../../..', __FILE__), "bin")
-  w.puts RbConfig.expand(DATA.read, config.merge('bindir' => bindir))
+  w.puts RbConfig.expand(DATA.read, config)
 end
 
 
 __END__
 AMAZON = http://kindlegen.s3.amazonaws.com
-TARGET = kindlegen
+TARGET = $(target)
 BINDIR = $(bindir)
 TARBALL = $(tarball)
 CURL = curl
