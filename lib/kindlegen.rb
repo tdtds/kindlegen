@@ -20,7 +20,7 @@ module Kindlegen
   #
   def self.run( *params )
     clean_env do
-      Open3.capture3(command + ' ' + params.join(' '))
+      Open3.capture3("#{command} #{params.join(' ')}")
     end
   end
 
