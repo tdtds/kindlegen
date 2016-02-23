@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.authors     = ["TADA Tadashi"]
   s.email       = ["t@tdtds.jp"]
   s.homepage    = ""
+  s.license     = "GPLv3"
   s.summary     = %q{Installing kindlegen command.}
   s.description = %q{Installing kindlegen command, downloading tar.gz file from amazon.com, and extracting it and copy kindlegen command to bin.}
 
