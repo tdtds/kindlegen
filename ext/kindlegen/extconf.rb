@@ -13,7 +13,7 @@ File::open('Makefile', 'w') do |w|
     unzip = 'tar -zx --no-same-owner -f'
     tarball = 'kindlegen_linux_2.6_i386_v2_9.tar.gz'
     target = 'kindlegen'
-  when /mingw32/i
+  when /mingw32|mswin32/i
     unzip = 'unzip'
     # Abort if either `unzip' or `curl' if not found
     `where #{unzip}`
