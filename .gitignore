@@ -14,3 +14,5 @@ ext/kindlegen/Multimedia*
 ext/kindlegen/Readme*
 ext/kindlegen/Release*
 ext/kindlegen/kindlegen
+doc/
+bin/
