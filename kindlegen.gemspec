@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.extensions    = ['bin/Rakefile'] # change to support windows
 
+  s.add_dependency 'rubyzip'
+
   # specify any dependencies here; for example:
   s.add_development_dependency "pry"
   s.add_development_dependency "test-unit"
