@@ -1,0 +1,83 @@
+#
+# Rakefile to install kindlegen
+# (c) Copryright Toshihiko Ichida 2016
+#
+require 'rbconfig'
+
+AMAZON = 'http://kindlegen.s3.amazonaws.com'
+
+def create_task_for_unix(config)
+  tarball = config[:tarball]
+  unzip   = config[:unzip]
+  target  = config[:target]
+  url = "#{AMAZON}/#{tarball}"
+
+  task :default => target
+
+  file target => tarball do
+    sh "#{unzip} #{tarball}"
+    sh "touch #{target}"
+  end
+
+  file tarball do
+    sh "curl #{url} -o #{tarball}"
+  end
+end
+
+# curl for windows
+def curl(url, tarball)
+  puts "open(#{url})"
+  puts "save to #{tarball}"
+  data = open(url, 'rb').read
+  open(tarball, 'wb').write(data)
+end
+
+# unzip for windows
+def unzip(tarball)
+  puts "win-unzip #{tarball}"
+  Zip::File.open(tarball).each do |entry|
+    dir = File.dirname(entry.name)
+    FileUtils.mkpath(dir) if dir != '.' && !File.exist?(dir)
+    entry.extract unless File.exist?(entry.name)
+  end
+end
+
+def create_task_for_windows(config)
+  require 'open-uri'
+  require 'fileutils'
+  require 'zip' # rubyzip gem
+
+  tarball = config[:tarball]
+  target  = config[:target]
+  url = "#{AMAZON}/#{tarball}"
+
+  task :default => target
+
+  file target => tarball do
+    unzip(tarball)
+  end
+
+  file tarball do
+    curl(url, tarball)
+  end
+end
+
+case RbConfig::CONFIG['host_os']
+when /mac|darwin/i
+  create_task_for_unix(
+    { tarball: 'KindleGen_Mac_i386_v2_9.zip',
+      unzip:   'unzip',
+      target:  'kindlgen' })
+when /linux|cygwin/i
+  create_task_for_unix(
+    { tarball: 'kindlegen_linux_2.6_i386_v2_9.tar.gz',
+      unzip:   'tar -zx --no-same-owner -f',
+      target:  'kindlegen' })
+when /mingw32|mswin32/i
+  create_task_for_windows(
+    { tarball: 'kindlegen_win32_v2_9.zip',
+      target: 'kindlegen.exe' })
+else
+  STDERR.puts "Host OS unsupported!"
+  exit(1)
+end
