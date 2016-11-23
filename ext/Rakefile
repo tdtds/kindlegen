@@ -3,8 +3,19 @@
 # (c) Copryright Toshihiko Ichida 2016
 #
 require 'rbconfig'
+require 'fileutils'
 
 AMAZON = 'http://kindlegen.s3.amazonaws.com'
+BINDIR = '../bin'
+
+def create_default_task(target)
+  task :default => :install
+
+  task :install => target do |t|
+    mkdir BINDIR unless File.exist?(BINDIR)
+    cp t.source, BINDIR
+  end
+end
 
 def create_task_for_unix(config)
   tarball = config[:tarball]
@@ -12,11 +23,11 @@ def create_task_for_unix(config)
   target  = config[:target]
   url = "#{AMAZON}/#{tarball}"
 
-  task :default => target
+  create_default_task(target)
 
   file target => tarball do
     sh "#{unzip} #{tarball}"
-    sh "touch #{target}"
+    sh "chmod +x #{target}"
   end
 
   file tarball do
@@ -44,14 +55,13 @@ end
 
 def create_task_for_windows(config)
   require 'open-uri'
-  require 'fileutils'
   require 'zip' # rubyzip gem
 
   tarball = config[:tarball]
   target  = config[:target]
   url = "#{AMAZON}/#{tarball}"
 
-  task :default => target
+  create_default_task(target)
 
   file target => tarball do
     unzip(tarball)
