@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.extensions    = ['bin/Rakefile'] # change to support windows
+  s.extensions    = ['ext/Rakefile'] # change to support windows
 
   s.add_dependency 'rubyzip'
 
