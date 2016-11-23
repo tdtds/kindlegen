@@ -2,6 +2,7 @@ require "kindlegen/version"
 require 'pathname'
 require 'rbconfig'
 require 'shellwords'
+require 'open3'
 
 module Kindlegen
   Root = Pathname.new(File.expand_path('../..', __FILE__))
@@ -21,11 +22,14 @@ module Kindlegen
   #
   def self.run( *params )
     cmdline = create_commandline(params)
+    msg = nil
     if windows?
-      system cmdline
+      msg, _ = Open3.capture2e(cmdline)
+      msg.force_encoding('utf-8')
     else
-      clean_env { system cmdline }
+      clean_env { msg, _ = Open3.capture2e(cmdline) }
     end
+    puts msg.gsub(/\n+/, "\n")
   end
 
 private
