@@ -55,7 +55,7 @@ end
 
 def create_task_for_windows(config)
   require 'open-uri'
-  require 'zip' # rubyzip gem
+  require 'zip'
 
   tarball = config[:tarball]
   target  = config[:target]
