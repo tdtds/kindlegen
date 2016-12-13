@@ -1,3 +1,3 @@
 module Kindlegen
-  VERSION = '2.9.7' unless const_defined?(:VERSION)
+  VERSION = '3.0.0' unless const_defined?(:VERSION)
 end
