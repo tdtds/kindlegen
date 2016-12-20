@@ -21,15 +21,16 @@ module Kindlegen
   #
   def self.run( *params )
     clean_env{Open3.capture3(command.to_s, *params)}.map do |r|
-    	r.force_encoding('UTF-8') if windows? && r.respond_to?(:force_encoding)
-		r
-	 end
+      r.force_encoding('UTF-8') if windows? && r.respond_to?(:force_encoding)
+      r
+    end
   end
 
 private
   def self.clean_env
     env_backup = ENV.to_h
     ENV.clear
+    ENV['TEMP'] = env_backup['TEMP'] if windows?
     ret = yield
     ENV.replace(env_backup)
     return ret
