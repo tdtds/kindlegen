@@ -77,7 +77,7 @@ when /mac|darwin/i
   create_task_for_unix(
     { tarball: 'KindleGen_Mac_i386_v2_9.zip',
       unzip:   'unzip',
-      target:  'kindlgen' })
+      target:  'kindlegen' })
 when /linux|cygwin/i
   create_task_for_unix(
     { tarball: 'kindlegen_linux_2.6_i386_v2_9.tar.gz',
