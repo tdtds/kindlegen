@@ -31,7 +31,7 @@ def create_task_for_unix(config)
   end
 
   file tarball do
-    sh "curl #{url} -o #{tarball}"
+    sh "curl #{url} -L -o #{tarball}"
   end
 end
 
