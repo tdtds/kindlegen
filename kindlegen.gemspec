@@ -23,9 +23,9 @@ Gem::Specification.new do |s|
   s.extensions    = ['ext/Rakefile']
 
   s.add_dependency 'rubyzip'
+  s.add_dependency "rake"
 
   # specify any dependencies here; for example:
-  s.add_development_dependency "rake"
   s.add_development_dependency "pry"
   s.add_development_dependency "test-unit"
 end
