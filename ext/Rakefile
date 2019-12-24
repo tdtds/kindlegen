@@ -49,7 +49,7 @@ def unzip(tarball)
   Zip::File.open(tarball).each do |entry|
     dir = File.dirname(entry.name)
     FileUtils.mkpath(dir) if dir != '.' && !File.exist?(dir)
-    entry.extract unless File.exist?(entry.name)
+    entry.extract(dest_path=entry.name) unless File.exist?(entry.name)
   end
 end
 
