@@ -1,0 +1,20 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        ruby: [2.4, 2.5, 2.6, 2.7]
+        # TODO: https://github.com/tdtds/kindlegen/issues/36
+        # Add macos-latest when kindlegen is fixed to work on Catalina
+        platform: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eregon/use-ruby-action@master
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - run: gem install bundler
+      - run: bundle install
+      - run: bundle exec rake build test
