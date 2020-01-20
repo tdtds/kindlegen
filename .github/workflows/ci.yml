@@ -5,7 +5,7 @@ jobs:
   build:
     strategy:
       matrix:
-        ruby: [2.4, 2.5, 2.6, 2.7]
+        ruby: [2.3, 2.4, 2.5, 2.6, 2.7]
         # TODO: https://github.com/tdtds/kindlegen/issues/36
         # Add macos-latest when kindlegen is fixed to work on Catalina
         platform: [ubuntu-latest, windows-latest]
