@@ -2,6 +2,7 @@
 *.swp
 /pkg
 /.bundle
+/.idea
 /vendor/bundle
 /Gemfile.lock
 /.ruby-version
