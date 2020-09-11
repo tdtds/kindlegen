@@ -87,7 +87,7 @@ end
 
 case RbConfig::CONFIG['host_os']
 when /mac|darwin/i
-  create_task_for_unix(
+  create_task_for_windows(
     { tarball: 'KindleGen_Mac_i386_v2_9.zip',
       target:  'kindlegen' })
 when /linux|cygwin/i
