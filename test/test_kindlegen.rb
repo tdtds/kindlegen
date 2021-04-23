@@ -9,7 +9,7 @@ class KindlegenTest < Test::Unit::TestCase
     kindlegen_lib_dir = nil
     gem_version = File.read(File.join(KINDLEGEN_PROJECT_DIR, 'lib/kindlegen/version.rb')).match(/VERSION = ["'](.*?)["']/)[1]
     gem_file = File.join(KINDLEGEN_PROJECT_DIR, 'pkg', %(kindlegen-#{gem_version}.gem))
-	 result = Gem::Installer.at(gem_file).install rescue Gem::Installer.new(gem_file).install
+	 result = Gem::Installer.at(gem_file).install rescue Gem::Installer.new(gem_file).install rescue Gem::Installer.new(Gem::Package.new gem_file).install
     begin
       require 'kindlegen'
     rescue ::LoadError

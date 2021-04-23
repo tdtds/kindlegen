@@ -51,7 +51,7 @@ end
 def curl(url, tarball)
   puts "open(#{url})"
   puts "save to #{tarball}"
-  open(url) do |file|
+  URI.open(url) do |file|
     IO.copy_stream(file, tarball)
   end
 end
