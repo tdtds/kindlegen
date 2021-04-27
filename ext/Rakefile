@@ -99,7 +99,7 @@ when /mingw32|mswin32/i
   create_task_for_windows(
     { tarball: 'kindlegen_win32_v2_9.zip',
       target: 'kindlegen.exe',
-      url: 'http://web.archive.org/web/20150407060917/http://kindlegen.s3.amazonaws.com/kindlegen_win32_v2_9.zip' })
+      url: 'https://web.archive.org/web/20150407060917/https://kindlegen.s3.amazonaws.com/kindlegen_win32_v2_9.zip' })
 else
   STDERR.puts "Host OS unsupported!"
   exit(1)
