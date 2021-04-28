@@ -5,9 +5,8 @@ jobs:
   build:
     strategy:
       matrix:
-        ruby: [2.5, 2.6, 2.7, 3.0]
-        # TODO: https://github.com/tdtds/kindlegen/issues/36
-        # Add macos-latest when kindlegen is fixed to work on Catalina
+        # TODO: Use 'jruby-9.2' when https://github.com/jruby/jruby/issues/6648 is fixed
+        ruby: ['jruby-9.2.16', '2.5', '2.6', '2.7', '3.0']
         platform: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
