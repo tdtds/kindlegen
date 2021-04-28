@@ -2,6 +2,7 @@ require 'test/unit'
 require 'rubygems/installer'
 require 'rubygems/uninstaller'
 KINDLEGEN_PROJECT_DIR = File.expand_path(File.dirname(File.dirname(__FILE__)))
+$:.delete('lib') # This is needed for JRuby
 $:.delete(File.join(KINDLEGEN_PROJECT_DIR, 'lib'))
 
 class KindlegenTest < Test::Unit::TestCase
